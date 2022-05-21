@@ -6,8 +6,6 @@ foreach($item in $Content.rss.channel.item)
 	
 		$PostPath = $Item.link
 		
-		$OutFileParts = $PostPath.Split("/")
-		$OutFolder = ".\{0}\{1}" -f $OutFileParts[1], $OutFileParts[2]
 		$Title = [string]([System.Web.HttpUtility]::HtmlEncode($item.Title.InnerText))
 		$RawContent = $Item.encoded.InnerText
 		$Content = [string]([System.Web.HttpUtility]::HtmlEncode($RawContent[0]))
