@@ -17,7 +17,7 @@
 		private int year;
 
 		/// <summary>Gets the page size.</summary>
-		public static int PageSize => 10;
+		public static int PageSize => 5;
 
 		/// <summary>Gets or sets the category filter.</summary>
 		[Parameter]
