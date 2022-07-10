@@ -1,4 +1,5 @@
 ﻿@inherits LayoutComponentBase
+@inject IConfiguration Configuration
 
 <div class="page">
     <div class="sidebar">
@@ -14,8 +15,8 @@
             @Body
         </article>
         <footer class="px-4">
-            <p>George Leithead</p>
-            <p>&copy; 2022 - InternetWideWorld.com. All Rights Reserved.</p>
+            <p>@Configuration["siteOwner"]</p>
+            <p>&copy; @DateTime.Now.Year - @Configuration["siteDomain"]. All Rights Reserved.</p>
         </footer>
     </main>
 </div>
