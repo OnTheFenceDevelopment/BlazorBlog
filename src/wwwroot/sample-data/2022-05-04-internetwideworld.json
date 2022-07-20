@@ -1,0 +1,17 @@
+﻿{
+  "Content": [
+    "<p>A super simple playground example of providing a blog using .NET 6 and Blazor WASM.</p>",
+    "<h2>features</h2>",
+    "<ul> <li>Simple JSON file for blog entries.</li> <li>Customisable blog entry header.</li> <li>Customisable filtering on year, month, day, author, tag cloud, permalink.</li> <li>Pagination for all filters.</li> <li>Tag cloud with weighted rendering.</li> <li>Customisable permalinks.</li> </ul>"
+  ],
+  "Title": "InternetWideWorld.com",
+  "Categories": [
+    "Blazor",
+    "WASM",
+    "InternetWideWorld"
+  ],
+  "Author": "George Leithead",
+  "Id": "0",
+  "Created": "2022-05-04T10:00:00+00:00",
+  "Permalink": "/2022/05/InternetWideWorld"
+}
