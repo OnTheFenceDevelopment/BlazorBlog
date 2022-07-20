@@ -34,15 +34,18 @@ else
     <div class="container">
         <div class="row">
             <div class="col-lg-8 col-md-10 mx-auto">
-                @Debug
+
+                @DebugData
+
                 <BlogHeader Year="@Year" Month="@Month" Day="@Day" PermaLink="@PermaLink" Category="@Category" />
+
                 @if (this.pagedBlogEntries.Count == 0)
                 {
                     <span>No blog entries found for your selection!</span>
                 }
                 else
                 {
-                    if (pagedBlogEntries.Count > 1)
+                    if (string.IsNullOrEmpty(PermaLink))
                     {
                         @foreach (EntryModel entry in pagedBlogEntries)
                         {

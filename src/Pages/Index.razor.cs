@@ -41,7 +41,7 @@
 			}
 		}
 
-		public string? Debug { get; set; }
+		public string? DebugData { get; set; }
 
 		[Parameter]
 		public int Month
@@ -95,7 +95,7 @@
         private void SetPagedFilteredBlog()
 		{
 #if DEBUG
-			Debug = string.Format("PageNumber: {0}, Year:{1}, Month:{2}, Day:{3}, PermaLink:'{4}', Category:'{5}'", PageNumber, Year, Month, Day, PermaLink, Category);
+			DebugData = string.Format("PageNumber: {0}, Year:{1}, Month:{2}, Day:{3}, Slug:'{4}', Category:'{5}'", PageNumber, Year, Month, Day, PermaLink, Category);
 #endif
 
 			TotalPages = 0;
@@ -105,6 +105,9 @@
 			}
 
 			List<EntryModel> allBlogEntries = blogEntries;
+
+			// TODO: Need to check that my move from PermaLink to Slug hasn't broken this
+			//       Currently unable to debug Blazor on VS for Mac (preview) so check using VS on Windows
 			if (!string.IsNullOrWhiteSpace(PermaLink))
 			{
 				// Filter to single entry
