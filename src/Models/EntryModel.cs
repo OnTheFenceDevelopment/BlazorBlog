@@ -15,7 +15,9 @@
 
 		public int Id { get; set; }
 
-		public string Permalink { get; set; } = string.Empty;
+		public string Slug { get; set; } = string.Empty;
+
+		public string Permalink { get { return $"/{Created.Year}/{Created.Month.ToString("0#")}/{Slug}"; } }
 
 		public string Title { get; set; } = string.Empty;
 	}
