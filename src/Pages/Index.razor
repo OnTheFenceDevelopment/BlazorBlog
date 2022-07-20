@@ -17,49 +17,67 @@
 
 @if (pagedBlogEntries == null)
 {
-	<!-- Start Main Content -->
-	<div class="container">
-		<div class="row">
-			<div class="col-lg-10 col-md-12 mx-auto">
-				<p><em>Chopping the (b)logs for the fire...</em></p>
-			</div>
-		</div>
-	</div>
-	<!-- End Main Content -->
+    <!-- Start Main Content -->
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-10 col-md-12 mx-auto">
+                <p><em>Chopping the (b)logs for the fire...</em></p>
+            </div>
+        </div>
+    </div>
+    <!-- End Main Content -->
 }
 else
 {
-	<!-- Start Main Content -->
-	<div class="container">
-		<div class="row">
-			<div class="col-lg-8 col-md-10 mx-auto">
-				@Debug
-				<BlogHeader Year="@Year" Month="@Month" Day="@Day" PermaLink="@PermaLink" Category="@Category" />
-				@if (this.pagedBlogEntries.Count == 0)
-				{
-					<span>No blog entries found for your selection!</span>
-				}
-				else
-				{
-					@foreach (EntryModel entry in pagedBlogEntries)
-					{
-						<BlogRender Entry="@entry" />
-					}
+    <!-- Start Main Content -->
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-md-10 mx-auto">
+                @Debug
+                <BlogHeader Year="@Year" Month="@Month" Day="@Day" PermaLink="@PermaLink" Category="@Category" />
+                @if (this.pagedBlogEntries.Count == 0)
+                {
+                    <span>No blog entries found for your selection!</span>
+                }
+                else
+                {
+                    @foreach (EntryModel entry in pagedBlogEntries)
+                    {
+                        <BlogRender Entry="@entry" />
+                    }
 
-					<BlogPager Count="@this.TotalPages" PageSize="@PageSize" PageNumber="@PageNumber" Year="@Year" Month="@Month" Day="@Day" />
-				}
-			</div>
-			<TagCloud BlogItems="@this.blogEntries" />
-		</div>
-	</div>
-	<!-- End Main Content -->
+                    <BlogPager Count="@this.TotalPages" PageSize="@PageSize" PageNumber="@PageNumber" Year="@Year" Month="@Month" Day="@Day" />
+                }
+            </div>
+            <TagCloud BlogItems="@this.blogEntries" />
+        </div>
+    </div>
+    <!-- End Main Content -->
 }
 
 @code {
-	protected override async Task OnInitializedAsync()
-	{
-		List<EntryModel> allBlogEntries = await Http.GetFromJsonAsync<List<EntryModel>>("sample-data/BlogEntry.json");
-		blogEntries = allBlogEntries.OrderByDescending(be => be.Created).ToList();
-		SetPagedFilteredBlog();
-	}
+    protected override async Task OnInitializedAsync()
+    {
+        var posts = new List<EntryModel>();
+        var postDirectory = await Http.GetStringAsync("sample-data/post-directory.txt");
+
+        var postFilenames = postDirectory.Split(Environment.NewLine);
+        foreach (var postFilename in postFilenames)
+        {
+            if (string.IsNullOrEmpty(postFilename))
+            {
+                continue;
+            }
+
+            var post = await Http.GetFromJsonAsync<EntryModel>($"sample-data/{postFilename}");
+
+            posts.Add(post!);
+        }
+
+        var allBlogEntries = posts;
+
+        blogEntries = allBlogEntries?.OrderByDescending(be => be.Created).ToList();
+
+        SetPagedFilteredBlog();
+    }
 }
