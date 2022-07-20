@@ -4,26 +4,20 @@
 	using System;
 	using System.Globalization;
 
-	/// <summary>Blog header component.</summary>
 	public partial class BlogHeader
 	{
-		/// <summary>Gets or sets the category filter.</summary>
 		[Parameter]
 		public string? Category { get; set; }
 
-		/// <summary>Gets or sets the day filter.</summary>
 		[Parameter]
 		public int Day { get; set; }
 
-		/// <summary>Gets or sets the month filter.</summary>
 		[Parameter]
 		public int Month { get; set; }
 
-		/// <summary>Gets or sets the permalink filter.</summary>
 		[Parameter]
 		public string PermaLink { get; set; }
 
-		/// <summary>Gets or sets the year filter.</summary>
 		[Parameter]
 		public int Year { get; set; }
 

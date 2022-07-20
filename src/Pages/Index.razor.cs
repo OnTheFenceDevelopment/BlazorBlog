@@ -4,8 +4,9 @@
 	using Microsoft.AspNetCore.Components;
 	using System.Collections.Generic;
 	using System.Linq;
+    using System.Threading.Tasks;
 
-	public partial class Index
+    public partial class Index
 	{
 		private List<EntryModel>? blogEntries;
 		private string? category;
@@ -13,17 +14,15 @@
 		private int month;
 		private List<EntryModel>? pagedBlogEntries;
 		private int pageNumber = 1;
-		private string permaLink;
+		private string permaLink = string.Empty;
 		private int year;
 
-		/// <summary>Gets the page size.</summary>
 		public static int PageSize => 5;
 
-		/// <summary>Gets or sets the category filter.</summary>
 		[Parameter]
 		public string Category
 		{
-			get => category;
+			get => category ?? string.Empty;
 			set
 			{
 				category = value;
@@ -31,7 +30,6 @@
 			}
 		}
 
-		/// <summary>Gets or sets the day filter.</summary>
 		[Parameter]
 		public int Day
 		{
@@ -43,10 +41,8 @@
 			}
 		}
 
-		/// <summary>Gets or sets the debug string.</summary>
 		public string? Debug { get; set; }
 
-		/// <summary>Gets or sets the month filter.</summary>
 		[Parameter]
 		public int Month
 		{
@@ -58,7 +54,6 @@
 			}
 		}
 
-		/// <summary>Gets or sets the pagination page number.</summary>
 		[Parameter]
 		public int PageNumber
 		{
@@ -70,11 +65,9 @@
 			}
 		}
 
-		/// <summary>Gets or sets the page route.</summary>
 		[Parameter]
 		public string? PageRoute { get; set; }
 
-		/// <summary>Gets or sets the permalink filter.</summary>
 		[Parameter]
 		public string PermaLink
 		{
@@ -86,10 +79,8 @@
 			}
 		}
 
-		/// <summary>Gets or sets the total number of blog pages for the applied filter(s).</summary>
 		public int TotalPages { get; set; }
 
-		/// <summary>gets or sets the year filter.</summary>
 		[Parameter]
 		public int Year
 		{
@@ -101,8 +92,7 @@
 			}
 		}
 
-		/// <summary>Set the paged filtered blog entries.</summary>
-		private void SetPagedFilteredBlog()
+        private void SetPagedFilteredBlog()
 		{
 #if DEBUG
 			Debug = string.Format("PageNumber: {0}, Year:{1}, Month:{2}, Day:{3}, PermaLink:'{4}', Category:'{5}'", PageNumber, Year, Month, Day, PermaLink, Category);
@@ -155,7 +145,7 @@
 
 			if (!string.IsNullOrWhiteSpace(Category))
 			{
-				allBlogEntries = allBlogEntries.Where(abe => abe.Categories.Contains(Category)).ToList(); // Filter by category
+				allBlogEntries = allBlogEntries.Where(abe => abe.Categories!.Contains(Category)).ToList(); // Filter by category
 			}
 
 			if (allBlogEntries.Count == 0)

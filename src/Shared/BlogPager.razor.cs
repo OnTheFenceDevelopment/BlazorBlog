@@ -3,27 +3,21 @@
 	using Microsoft.AspNetCore.Components;
 	using System;
 
-	/// <summary>Blog pager component.</summary>
 	public partial class BlogPager
 	{
 		private int pageNumber;
 
-		/// <summary>Gets or sets the count of entries.</summary>
 		[Parameter]
 		public int Count { get; set; }
 
-		/// <summary>Gets or sets the day filter.</summary>
 		[Parameter]
 		public int Day { get; set; }
 
-		/// <summary>Gets or sets the month filter.</summary>
 		[Parameter]
 		public int Month { get; set; }
 
-		/// <summary>Gets the number of pages.</summary>
 		public int NumberOfPages => (int)Math.Ceiling(Count / (double)PageSize);
 
-		/// <summary>Gets or sets the current page number.</summary>
 		[Parameter]
 		public int PageNumber
 		{
@@ -41,11 +35,9 @@
 			}
 		}
 
-		/// <summary>Gets or sets the page size.</summary>
 		[Parameter]
 		public int PageSize { get; set; }
 
-		/// <summary>Gets or sets the year filter.</summary>
 		[Parameter]
 		public int Year { get; set; }
 

@@ -6,14 +6,11 @@
 	using System.Collections.Generic;
 	using System.Linq;
 
-	/// <summary>Tag cloud component.</summary>
 	public partial class TagCloud
 	{
-		/// <summary>Gets or sets the blog items.</summary>
 		[Parameter]
 		public List<EntryModel>? BlogItems { get; set; }
 
-		/// <summary>Gets the tag cloud.</summary>
 		public SortedDictionary<string, WeightAndPostCount> TagCould
 		{
 			get
