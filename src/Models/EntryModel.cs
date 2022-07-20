@@ -5,20 +5,18 @@
 
 	public class EntryModel
 	{
-		public string Author { get; set; } = "N/A";
+        public string Title { get; set; } = string.Empty;
 
-		public List<string>? Categories { get; set; }
+        public DateTimeOffset Created { get; set; }
 
-		public string[] Content { get; set; } = new List<string>().ToArray();
+        public string Author { get; set; } = "N/A";
 
-		public DateTimeOffset Created { get; set; }
+        public string Slug { get; set; } = string.Empty;
 
-		public int Id { get; set; }
+        public string Permalink { get { return $"/{Created.Year}/{Created.Month.ToString("0#")}/{Slug}"; } }
 
-		public string Slug { get; set; } = string.Empty;
+        public string[] Content { get; set; } = new List<string>().ToArray();
 
-		public string Permalink { get { return $"/{Created.Year}/{Created.Month.ToString("0#")}/{Slug}"; } }
-
-		public string Title { get; set; } = string.Empty;
+        public List<string>? Categories { get; set; }
 	}
 }

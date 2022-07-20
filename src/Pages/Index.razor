@@ -10,6 +10,7 @@
 @page "/category/{Category}"
 @page "/category/{Category}/Page/{PageNumber:int}"
 @page "/{*pageRoute}"
+@inject IConfiguration Configuration
 @inject HttpClient Http
 @using System.Linq
 @using BlazorBlog.Models
@@ -41,9 +42,16 @@ else
                 }
                 else
                 {
-                    @foreach (EntryModel entry in pagedBlogEntries)
+                    if (pagedBlogEntries.Count > 1)
                     {
-                        <BlogRender Entry="@entry" />
+                        @foreach (EntryModel entry in pagedBlogEntries)
+                        {
+                            <BlogSummaryRender Entry="@entry" />
+                        }
+                    }
+                    else
+                    {
+                        <BlogRender Entry="@pagedBlogEntries.First()" />
                     }
 
                     <BlogPager Count="@this.TotalPages" PageSize="@PageSize" PageNumber="@PageNumber" Year="@Year" Month="@Month" Day="@Day" />
@@ -59,7 +67,9 @@ else
     protected override async Task OnInitializedAsync()
     {
         var posts = new List<EntryModel>();
-        var postDirectory = await Http.GetStringAsync("sample-data/post-directory.txt");
+        var postFolder = Configuration["postDirectory"];
+        var postManifest = Configuration["postManifestFilename"];
+        var postDirectory = await Http.GetStringAsync($"{postFolder}/{postManifest}");
 
         var postFilenames = postDirectory.Split(Environment.NewLine);
         foreach (var postFilename in postFilenames)
@@ -69,7 +79,7 @@ else
                 continue;
             }
 
-            var post = await Http.GetFromJsonAsync<EntryModel>($"sample-data/{postFilename}");
+            var post = await Http.GetFromJsonAsync<EntryModel>($"{postFolder}/{postFilename}");
 
             posts.Add(post!);
         }
