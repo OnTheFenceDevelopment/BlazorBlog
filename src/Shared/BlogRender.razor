@@ -1,18 +1,23 @@
-﻿<article id="@Entry.Id">
-	<div class="post-heading">
-		<a href="@Entry.Permalink" rel="bookmark"><h2 class="post-title">@((MarkupString)(System.Net.WebUtility.HtmlDecode(Entry.Title)))</h2></a>
-		<p class="post-meta">
-			<span class="posted-on">
-				<i class="fa fa-calendar" aria-hidden="true"></i>
-				<time class="entry-date published" datetime="@Entry.Created"><a href="@Entry.Created.ToString("/yyyy")" rel="bookmark">@Entry.Created.ToString("yyyy")</a>-<a href="@Entry.Created.ToString("/yyyy/MM")" rel="bookmark">@Entry.Created.ToString("MM")</a>-<a href="@Entry.Created.ToString("/yyyy/MM/dd")" rel="bookmark">@Entry.Created.ToString("dd")</a></time>
-			</span>
-			<span class="author vcard"><i class="fa fa-user" aria-hidden="true"></i> @Entry.Author</span>
-			<!--<span class=""><i class="fa fa-comment" aria-hidden="true"></i> Comments disabled</span>-->
-		</p>
-	</div>
-	<div class="entry-content">
-		@((MarkupString)(System.Net.WebUtility.HtmlDecode(Entry.Content)))
-	</div>
-	<Categories CategoryArray="@Entry.Categories" />
-	<hr>
+﻿<article id="@Entry!.Id">
+    <div class="post-heading">
+        <a href="@Entry.Permalink" rel="bookmark"><h2 class="post-title">@((MarkupString)(System.Net.WebUtility.HtmlDecode(Entry.Title)))</h2></a>
+        <p class="post-meta">
+            <span class="posted-on">
+                <i class="fa fa-calendar" aria-hidden="true"></i>
+                <time class="entry-date published" datetime="@Entry.Created"><a href="@Entry.Created.ToString("/yyyy")" rel="bookmark">@Entry.Created.ToString("yyyy")</a>-<a href="@Entry.Created.ToString("/yyyy/MM")" rel="bookmark">@Entry.Created.ToString("MM")</a>-@Entry.Created.ToString("dd")</time>
+            </span>
+            <span class="author vcard"><i class="fa fa-user" aria-hidden="true"></i> @Entry.Author</span>
+        </p>
+    </div>
+    <div class="entry-content">
+        @if (Entry.Content.Length > 0)
+        {
+            foreach (var item in Entry.Content)
+            {
+                @((MarkupString)(System.Net.WebUtility.HtmlDecode(item)))
+            }
+        }
+    </div>
+    <Categories CategoryArray="@Entry.Categories" />
+    <hr>
 </article>
